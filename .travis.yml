@@ -7,9 +7,13 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y openssh-client
   - docker-compose build
+  - docker-compose up -d
 
 script:
   - ssh -p 2222 -i ./ssh-keys/id_rsa.mpi mpi_user@localhost -- mpirun -np 16 hostname
+
+after_success:
+  - docker-compose down
 
 notifications:
   slack: microbrain:dHXYnMz4KBlHXHLs64ju5h5Y
