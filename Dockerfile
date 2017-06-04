@@ -25,11 +25,14 @@ RUN useradd mpi_user \
 
 COPY ssh-keys/id_rsa.mpi ${HOME}/.ssh/id_rsa
 COPY ssh-keys/id_rsa.mpi.pub ${HOME}/.ssh/authorized_keys
+COPY ssh-keys/config ${HOME}/.ssh/config
+COPY hostfile.txt ${HOME}
 
 WORKDIR ${HOME}
 RUN  chown -R mpi_user:mpi_user ${HOME} \
     && chmod 700 .ssh \
-    && chmod 600 .ssh/*
+    && chmod 600 .ssh/* \
+    && cat hostfile.txt >> /etc/openmpi/openmpi-default-hostfile
 
 EXPOSE 22
 #USER mpi_user
