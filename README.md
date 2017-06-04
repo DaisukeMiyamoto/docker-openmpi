@@ -4,7 +4,10 @@ docker-openmpi
 base package for docker cluster with openmpi
 
 # with docker compose
-
+1. generate ssh public key pair
+    ```
+    $ ./keygen.sh
+    ```
 1. build and deploy MPI cluster
     ```
     $ docker-compose build
@@ -33,6 +36,10 @@ base package for docker cluster with openmpi
     4c1364ddf9d9
     4c1364ddf9d9
     4c1364ddf9d9
+    ```
+4. shutdown cluster
+    ```
+    $ docker-compose down
     ```
 
 # with swarm
