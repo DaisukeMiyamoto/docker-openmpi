@@ -10,7 +10,7 @@ before_install:
   - docker-compose up -d
 
 script:
-  - ssh -p 2222 -i ./ssh-keys/id_rsa.mpi mpi_user@localhost -- mpirun -np 16 hostname
+  - ssh -p 2222 -i ./ssh-keys/id_rsa.mpi -o StrictHostKeyChecking=no mpi_user@localhost -- mpirun -np 16 hostname
 
 after_success:
   - docker-compose down
