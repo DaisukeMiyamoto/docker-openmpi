@@ -6,6 +6,8 @@ services:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y openssh-client
+  - chmod 700 ssh-keys
+  - chmod 600 ssh-keys/*
   - docker-compose build
   - docker-compose up -d
 
