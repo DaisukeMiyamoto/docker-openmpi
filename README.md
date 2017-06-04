@@ -1,6 +1,8 @@
 docker-openmpi
 ---
 
+[![Build Status](https://travis-ci.org/DaisukeMiyamoto/docker-openmpi.svg?branch=master)](https://travis-ci.org/DaisukeMiyamoto/docker-openmpi)
+
 base package for docker cluster with openmpi
 
 # with docker compose
