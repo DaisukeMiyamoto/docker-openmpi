@@ -3,19 +3,27 @@ sudo: required
 services:
   - docker
 
+env:
+  DOCKER_COMPOSE_VERSION: 1.13.0
+
+
+before_install:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y openssh-client
-  - chmod 700 ssh-keys
-  - chmod 600 ssh-keys/*
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - ./keygen.sh
   - docker-compose build
-  - docker-compose up -d
+  - docker-compose up --scale node=4 -d
 
 script:
-  - ssh -p 2222 -i ./ssh-keys/id_rsa.mpi -o StrictHostKeyChecking=no mpi_user@localhost -- mpirun -np 16 hostname
+  - ssh -p 2222 -i ./docker-image/ssh-keys/id_rsa.mpi -o StrictHostKeyChecking=no mpi_user@localhost -- bash -c "./make-hostfile.sh && mpirun -np 16 hostname"
 
 after_success:
-  - docker-compose down
+  - docker-compose down -v
 
 notifications:
   slack: microbrain:dHXYnMz4KBlHXHLs64ju5h5Y

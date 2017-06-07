@@ -13,14 +13,15 @@ base package for docker cluster with openmpi
 1. build and deploy MPI cluster
     ```
     $ docker-compose build
-    $ docker-compose up -d
+    $ docker-compose up --scale node=4 -d
     ```
 2. login to master node
     ```
-    $ ssh -p 2222 localhost
+    $ ./connect-master.sh
     ```
 3. run mpi program from master node
     ```
+    $ ./make-hostfile.sh
     $ mpirun -np 16 hostname
     252f9f5abc18
     252f9f5abc18
@@ -41,7 +42,7 @@ base package for docker cluster with openmpi
     ```
 4. shutdown cluster
     ```
-    $ docker-compose down
+    $ docker-compose down -v
     ```
 
 # with swarm
