@@ -2,23 +2,21 @@ version: "2"
 
 services:
   master:
-    build: .
+    build: ./docker-image
     container_name: master
     ports:
       - "2222:22"
-  node0:
-    build: .
-    container_name: node0
-  node1:
-    build: .
-    container_name: node1
-  node2:
-    build: .
-    container_name: node2
-  node3:
-    build: .
-    container_name: node3
+    volumes:
+      - hosts:/hosts
+  node:
+    build: ./docker-image
+    command: ./compose-start.sh
+    volumes_from:
+      - master
 
 networks:
   default:
     driver: bridge
+
+volumes:
+  hosts:

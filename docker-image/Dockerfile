@@ -20,22 +20,22 @@ RUN apt-get update \
 
 RUN useradd mpi_user \
     && mkdir -p ${HOME} \
-    && mkdir -p {HOME}/.ssh \
+    && mkdir -p ${HOME}/.ssh \
     && mkdir /var/run/sshd
 
 COPY ssh-keys/id_rsa.mpi ${HOME}/.ssh/id_rsa
 COPY ssh-keys/id_rsa.mpi.pub ${HOME}/.ssh/authorized_keys
 COPY ssh-keys/config ${HOME}/.ssh/config
-COPY hostfile.txt ${HOME}
+COPY compose-start.sh ${HOME}
+COPY make-hostfile.sh ${HOME}
 
 WORKDIR ${HOME}
 RUN  chown -R mpi_user:mpi_user ${HOME} \
     && chmod 700 .ssh \
     && chmod 600 .ssh/* \
-    && cat hostfile.txt >> /etc/openmpi/openmpi-default-hostfile
+    && chmod +x *.sh \
+    && touch /etc/openmpi/openmpi-default-hostfile \
+    && chmod 666 /etc/openmpi/openmpi-default-hostfile
 
 EXPOSE 22
-#USER mpi_user
 CMD ["/usr/sbin/sshd", "-D"]
-#RUN chmod 600 .ssh/*
-

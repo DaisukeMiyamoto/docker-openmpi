@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mpi-master
+spec:
+  containers:
+  - name: mpi-master
+    image: dmiyamoto/ompi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mpi-cluster
+spec:
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: mpi-node
+        image: dmiyamoto/ompi
