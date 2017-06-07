@@ -17,7 +17,7 @@ base package for docker cluster with openmpi
     ```
 2. login to master node
     ```
-    $ ssh -p 2222 localhost
+    $ ssh -p 2222 -i ssh_keys/id_rsa.mpi mpi_user@localhost
     ```
 3. run mpi program from master node
     ```
