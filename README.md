@@ -13,7 +13,7 @@ base package for docker cluster with openmpi
 1. build and deploy MPI cluster
     ```
     $ docker-compose build
-    $ docker-compose up -d
+    $ docker-compose up --scale node=4 -d
     ```
 2. login to master node
     ```
