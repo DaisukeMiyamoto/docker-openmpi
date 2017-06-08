@@ -3,9 +3,16 @@ kind: Pod
 metadata:
   name: mpi-master
 spec:
+  volumes:
+    - name: hosts
+      emptyDir: {}
   containers:
   - name: mpi-master
     image: dmiyamoto/ompi
+    - containerPort: 2222
+    volumeMounts:
+    - mountPath: /hosts
+      name: hosts
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
