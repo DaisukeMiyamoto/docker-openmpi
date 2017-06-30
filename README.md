@@ -6,6 +6,7 @@ docker-openmpi
 base package for docker cluster with openmpi
 
 # with docker compose
+1. set up `docker-compose`
 1. generate ssh public key pair
     ```
     $ ./keygen.sh
@@ -49,3 +50,12 @@ base package for docker cluster with openmpi
 
 # with kubernetes
 
+1. set up `kubernetes`
+
+1. start cluster
+    ```
+    $ kubectl create -f mpi-deployment.yml
+    ```
+1. login to master node
+1. run mpi program
+1. shutdown cluster
