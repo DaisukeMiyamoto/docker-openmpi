@@ -57,5 +57,12 @@ base package for docker cluster with openmpi
     $ kubectl create -f mpi-deployment.yml
     ```
 1. login to master node
+    ```
+    $ kubectl exec -it mpi-master /bin/bash
+    ```
+1. set up `hostfile.txt`
 1. run mpi program
+    ```
+    $ mpiexec -np 4 --hostfile hostfile.txt ./mpi_examples/bmt_L_2x2x1.out
+    ```
 1. shutdown cluster

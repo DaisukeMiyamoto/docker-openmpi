@@ -22,7 +22,8 @@ RUN useradd mpi_user \
     && mkdir -p ${HOME} \
     && mkdir -p ${HOME}/.ssh \
     && mkdir /var/run/sshd \
-    && mkdir ${HOME}/mpi_examples
+    && mkdir ${HOME}/mpi_examples \
+    && chsh -s /bin/bash mpi_user
 
 COPY ssh-keys/id_rsa.mpi ${HOME}/.ssh/id_rsa
 COPY ssh-keys/id_rsa.mpi.pub ${HOME}/.ssh/authorized_keys
